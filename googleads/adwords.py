@@ -516,28 +516,26 @@ class BatchJobHelper(object):
     # Incremental uploads must have a content-length that is a multiple of this.
     _BATCH_JOB_INCREMENT = 262144
     # Generate a mapping of Operations to their service and methods.
-    _OPERATION_MAP = {
-        op[0]: namedtuple('Operation', ['operation_type', 'service', 'method'])
-               (op[0], op[1], op[2])
-        for op in (
-            ('AdGroupAdOperation', 'AdGroupAdService', 'mutate'),
-            ('AdGroupAdLabelOperation', 'AdGroupAdService', 'mutateLabel'),
-            ('AdGroupBidModifierOperation', 'AdGroupBidModifierService',
-             'mutate'),
-            ('AdGroupCriterionOperation', 'AdGroupCriterionService',
-             'mutate'),
-            ('AdGroupCriterionLabelOperation', 'AdGroupCriterionService',
-             'mutateLabel'),
-            ('AdGroupOperation', 'AdGroupService', 'mutate'),
-            ('AdGroupLabelOperation', 'AdGroupService', 'mutateLabel'),
-            ('BudgetOperation', 'BudgetService', 'mutate'),
-            ('CampaignCriterionOperation', 'CampaignCriterionService',
-             'mutate'),
-            ('CampaignOperation', 'CampaignService', 'mutate'),
-            ('CampaignLabelOperation', 'CampaignService', 'mutateLabel'),
-            ('FeedItemOperation', 'FeedItemService', 'mutate')
-        )
-    }
+    _OPERATION_MAP = {}
+    for op in (
+        ('AdGroupAdOperation', 'AdGroupAdService', 'mutate'),
+        ('AdGroupAdLabelOperation', 'AdGroupAdService', 'mutateLabel'),
+        ('AdGroupBidModifierOperation', 'AdGroupBidModifierService',
+         'mutate'),
+        ('AdGroupCriterionOperation', 'AdGroupCriterionService',
+         'mutate'),
+        ('AdGroupCriterionLabelOperation', 'AdGroupCriterionService',
+         'mutateLabel'),
+        ('AdGroupOperation', 'AdGroupService', 'mutate'),
+        ('AdGroupLabelOperation', 'AdGroupService', 'mutateLabel'),
+        ('BudgetOperation', 'BudgetService', 'mutate'),
+        ('CampaignCriterionOperation', 'CampaignCriterionService',
+         'mutate'),
+        ('CampaignOperation', 'CampaignService', 'mutate'),
+        ('CampaignLabelOperation', 'CampaignService', 'mutateLabel'),
+        ('FeedItemOperation', 'FeedItemService', 'mutate')
+    ):
+        _OPERATION_MAP[op[0]] = namedtuple('Operation', ['operation_type', 'service', 'method'])(op[0], op[1], op[2])
 
     def __init__(self, **kwargs):
       """Initializes a _SudsUploadRequestBuilder.
